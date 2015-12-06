@@ -46,17 +46,17 @@ Find:
 
 Steps:
 
-1. V[n] is trivial, as it is a single resistor forming its voltage divider:
+1. R[n] is trivial, as it is a single resistor forming its voltage divider:
 	- V[n] = (V[1] - VGnd) * R[n] / RT + VGnd
 	- R[n] = (V[n] - VGnd) / (V[1] - VGnd) * RT
 	- Note that where VGnd really is 0V, it simplifies to the typical voltage divider.
-2. V[n-1] can then be calculated as R[n] is known, but R[n-1] is not.
+2. R[n-1] can then be calculated as R[n] is known.
 	- V[n-1] = (V[1] - VGnd) * (R[n-1] + R[n]) / RT + VGnd
 	- V[n-1] = (V[1] - VGnd) * (R[n-1] / RT + R[n] / RT) + VGnd
 	- R[n-1] / RT + R[n] / RT = (V[n-1] - VGnd) / (V[1] - VGnd)
 	- R[n-1] + R[n] = (V[n-1] - VGnd) / (V[1] - VGnd) * RT
 	- R[n-1] = (V[n-1] - VGnd) / (V[1] - VGnd) * RT - R[n]
-3. V[n-2] can be then seen to work out to:
+3. R[n-2] can be then seen to work out to:
 	- R[n-2] = (V[n-2] - VGnd) / (V[1] - VGnd) * RT - R[n] - R[n-1]
 4. From here we can generalize:
 	- R[i] = (V[i] - VGnd) / (V[1] - VGnd) * RT - (∑[j = i+1 .. n] R[j])
