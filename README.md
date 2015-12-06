@@ -25,7 +25,10 @@ var resistorChain = require( 'resistor-chain-calculator' );
 // Resistor chain for a supply of 3.2V, steps at 1V, 320mV, and 100mV, and true ground being 0V,
 // where the total resistance of the chain is 18kΩ.
 var resistors = resistorChain( 18e3, [ 3.2, 1, 320e-3, 100e-3, 0 ] );
-// = []
+// = [ 12375, 3825, 1237.4999999999998, 562.5 ]
+// Or, 12kΩ, 3.8kΩ, 1.2kΩ, 560Ω.
+// Or e12 preferred values: 12kΩ, 3.9kΩ, 1.2kΩ, 560Ω.
+// This gives a total 17.66kΩ, close to 18kΩ, off by 1.8%, smaller than the 5% error of the e12 series.
 ```
 
 
@@ -42,6 +45,7 @@ Find:
 - R1, R2, ... RN: Each resistor after the same numbered voltage step.
 
 Steps:
+
 1. V[n] is trivial, as it is a single resistor forming its voltage divider:
 	- V[n] = (V[1] - VGnd) * R[n] / RT + VGnd
 	- R[n] = (V[n] - VGnd) / (V[1] - VGnd) * RT

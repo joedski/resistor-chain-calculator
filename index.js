@@ -9,7 +9,7 @@ module.exports = function resistorChain( rTotal, voltages ) {
 		// skip the low/negative/ground rail.
 		if( iv >= voltages.length - 1 ) return resistors;
 
-		ri = (vi - vGround) / (vTotal - vGround) * rTotal - resistors.reduce( sum );
+		ri = (vi - vGround) / (vTotal - vGround) * rTotal - resistors.reduce( sum, 0 );
 
 		return [ ri ].concat( resistors );
 	}, [] );
