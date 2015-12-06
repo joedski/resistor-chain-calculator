@@ -1,0 +1,26 @@
+{
+  "name": "resistor-chain-calculator",
+  "description": "Calculate each resistor in a chain given a total resistance and a list of desired voltage steps.",
+  "main": "index.js",
+  "authors": [
+    "Joseph Sikorski <joedski@gmail.com>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "circuit",
+    "resistor",
+    "electrical",
+    "ee"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
