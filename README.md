@@ -42,7 +42,7 @@ Given:
 - RT: The total resistance of the chain.
 
 Find:
-- R1, R2, ... RN: Each resistor after the same numbered voltage step.
+- R[1], R[2], ... R[n]: Each resistor after the same numbered voltage step.  R[n] is between V[n] and VGnd.
 
 Steps:
 
