@@ -70,3 +70,5 @@ Steps:
 ### Rationale
 
 Given Ohm's Law, 2 values must be known to calculate the third.  Since I am not interested in current when creating voltage references, that leaves voltage and resistance, so both of those must be provided as input.
+
+Also, I was bored.
