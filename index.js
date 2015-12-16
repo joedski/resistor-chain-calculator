@@ -1,17 +1,17 @@
 
-module.exports = function resistorChain( rTotal, voltages ) {
-	var vGround = voltages[ voltages.length - 1 ];
-	var vTotal = voltages[ 0 ] - vGround;
+module.exports = function resistorChain( chainResistance, voltages ) {
+	var voltageGround = voltages[ voltages.length - 1 ];
+	var chainVoltageDrop = voltages[ 0 ] - voltageGround;
 
-	return voltages.reduceRight( function( resistors, vi, iv ) {
-		var ri;
+	var current = chainVoltageDrop / chainResistance;
 
-		// skip the low/negative/ground rail.
-		if( iv >= voltages.length - 1 ) return resistors;
+	return voltages.reduce( function( drops, vi, i ) {
+		if( i === 0 ) return drops;
 
-		ri = (vi - vGround) / vTotal * rTotal - resistors.reduce( sum, 0 );
+		var vprev = voltages[ i - 1 ];
+		var vdrop = vprev - vi;
 
-		return [ ri ].concat( resistors );
+		return drops.concat([ vdrop / current ]);
 	}, [] );
 };
 

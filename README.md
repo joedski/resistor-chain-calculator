@@ -36,39 +36,30 @@ var resistors = resistorChain( 18e3, [ 3.2, 1, 320e-3, 100e-3, 0 ] );
 Method
 ------
 
+Ohm's Law: V = IR
+
 Given:
-- n: Count of resistors, and count of voltage steps less 1.
-- V[1], V[2], ... V[n], VGnd: Voltage steps, where V[1] is also the positive supply rail, and VGnd is either ground or the lower (or negative) supply rail.
-- RT: The total resistance of the chain.
+- Voltage Steps of Chain
+- Total Resistance of Chain
 
-Find:
-- R[1], R[2], ... R[n]: Each resistor after the same numbered voltage step.  R[n] is between V[n] and VGnd.
+We can derive:
+- Total voltage drop of Chain (First step less the last step)
+- The voltage drop between each voltage step
+- Current going through whole chain, and therefore going through each step
 
-Steps:
+Now that we know the current through the chain, it's trivial to derive the resistance that produces each voltage.
 
-1. R[n] is trivial, as it is a single resistor forming its voltage divider:
-	- V[n] = (V[1] - VGnd) * R[n] / RT + VGnd
-	- R[n] = (V[n] - VGnd) / (V[1] - VGnd) * RT
-	- Note that where VGnd really is 0V, it simplifies to the typical voltage divider.
-2. R[n-1] can then be calculated as R[n] is known.
-	- V[n-1] = (V[1] - VGnd) * (R[n-1] + R[n]) / RT + VGnd
-	- V[n-1] = (V[1] - VGnd) * (R[n-1] / RT + R[n] / RT) + VGnd
-	- R[n-1] / RT + R[n] / RT = (V[n-1] - VGnd) / (V[1] - VGnd)
-	- R[n-1] + R[n] = (V[n-1] - VGnd) / (V[1] - VGnd) * RT
-	- R[n-1] = (V[n-1] - VGnd) / (V[1] - VGnd) * RT - R[n]
-3. R[n-2] can be then seen to work out to:
-	- R[n-2] = (V[n-2] - VGnd) / (V[1] - VGnd) * RT - R[n] - R[n-1]
-4. From here we can generalize:
-	- R[i] = (V[i] - VGnd) / (V[1] - VGnd) * RT - (∑[j = i+1 .. n] R[j])
-	- Where when i = n, (∑[j = i+1 .. n] R[j]) = 0, as there is no resistance between a rail/ground and itself, thus yielding this, Step 1:
-		- R[n] = (V[n] - VGnd) / (V[1] - VGnd) * RT
-	- Where when i = 1, v[i] is v[1], simplifying to:
-		- R[1] = (V[1] - VGnd) / (V[1] - VGnd) * RT - (∑[j = 2 .. n] R[j])
-		- R[1] = 1 * RT - (∑[j = 2 .. n] R[j])
-		- Which is just the total resistance minus the other resistors, which is logically the only resistor left to find.
+Where:
+- n is the number of voltage steps
+- ∆V[i] = V[i-1] - V[i]
+- V[0] is the positive most voltage step
+- V[n] is the negative most voltage step
+
+We get:
+- R[i] = ∆V[i] / I for i = 1 .. n
 
 ### Rationale
 
-Given Ohm's Law, 2 values must be known to calculate the third.  Since I am not interested in current when creating voltage references, that leaves voltage and resistance, so both of those must be provided as input.
+Given Ohm's Law, 2 values must be known to calculate the third.  Since I am not interested in a specific current when creating voltage references, that leaves voltage and resistance, so both of those must be provided as input.
 
 Also, I was bored.
