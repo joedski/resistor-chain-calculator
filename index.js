@@ -14,7 +14,3 @@ module.exports = function resistorChain( chainResistance, voltages ) {
 		return drops.concat([ vdrop / current ]);
 	}, [] );
 };
-
-function sum( t, n ) {
-	return t + n;
-}
